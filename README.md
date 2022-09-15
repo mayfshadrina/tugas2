@@ -100,10 +100,10 @@ Programmer dapat memilih untuk tidak menggunakan virtual environment dalam melak
 3. Untuk dapat melakukan pemetaan data CatalogItem ke file HTML, saya juga menjalankan perintah 
 
    ```shell
-   python manage.py loaddata initial_catalog_data.
+   python manage.py loaddata initial_catalog_data.json
    ```
 
-   json sehingga data yang terdapat pada file json dapat dimunculkan pada halaman HTML.
+   sehingga data yang terdapat pada file json dapat dimunculkan pada halaman HTML.
 
 4. Terakhir, saya memeriksa tampilhan HTML dengan perintah 
 
