@@ -1,0 +1,112 @@
+[
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":1,
+        "fields":{
+            "watched":"True",
+            "title":"Elvis",
+            "rating": "4",
+            "release_date":"2022-06-24",
+            "review": "austin butler played that role like his whole life depends on it."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":2,
+        "fields":{
+            "watched":"True",
+            "title":"Top Gun: Maverick",
+            "rating": "5",
+            "release_date":"2022-05-27",
+            "review": "miles teller should've keep his mustache like forever"
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":3,
+        "fields":{
+            "watched":"True",
+            "title":"Torn",
+            "rating": "5",
+            "release_date":"2021-12-03",
+            "review": "the story-telling, interviews, and archival footage gave so much emotion to this movie </3"
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":4,
+        "fields":{
+            "watched":"True",
+            "title":"Life As A House",
+            "rating": "3",
+            "release_date":"2001-11-09",
+            "review": "brad pitt wasn't lying at all T-T."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":5,
+        "fields":{
+            "watched":"True",
+            "title":"Procession",
+            "rating": "5",
+            "release_date":"2021-09-02",
+            "review": "some scenes hurt like crazy when you try to imagine what these men went through :("
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":6,
+        "fields":{
+            "watched":"True",
+            "title":"Spotlight",
+            "rating": "5",
+            "release_date":"2015-09-03",
+            "review": "frickn deserves that best picture title, baby!"
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":7,
+        "fields":{
+            "watched":"False",
+            "title":"Mencuri Raden Saleh",
+            "rating": "4",
+            "release_date":"2022-08-25",
+            "review": "worth the 2 times watching!"
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":8,
+        "fields":{
+            "watched":"True",
+            "title":"Sayap-Sayap Patah",
+            "rating": "3",
+            "release_date":"2022-08-18",
+            "review": "felt like a low budget movie for me. but the story was pretty solid, and nicho saputra tho <3"
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":9,
+        "fields":{
+            "watched":"False",
+            "title":"Where The Crawdads Sing",
+            "rating": "2",
+            "release_date":"2022-09-14",
+            "review": "the crawdads, in fact, did not sing. such a shame."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":10,
+        "fields":{
+            "watched":"True",
+            "title":"Hacksaw Ridge",
+            "rating": "4",
+            "release_date":"2016-11-04",
+            "review": "legend said andrew garfield still hoping to get one mo"
+        }
+    }
+]
