@@ -3,7 +3,7 @@
         "model":"mywatchlist.MyWatchlist",
         "pk":1,
         "fields":{
-            "watched":"True",
+            "watched": "True",
             "title":"Elvis",
             "rating": "4",
             "release_date":"2022-06-24",
