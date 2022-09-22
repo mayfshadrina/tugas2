@@ -7,8 +7,6 @@ Tugas 3 Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakult
 
 ## Perbedaan antara JSON, XML, dan HTML
 
-![BaganDjango](https://user-images.githubusercontent.com/87022037/191642480-2887fe8c-054a-4e58-be8e-e1e115c790f4.png)
-
 1. JSON
     * JavaScript Object Notation atau yang lebih kerap dikenal dengan JSON merupakan sebuah format yang digunakan untuk menyimpan, membaca, dan menukar dara-data dari web server sehingga dapat dibaca oleh para pengguna
     * JSON terdiri dari dua struktur, yaitu yang pertama merupakan kumpulan value yang saling berpasangan (seperti object) dan kumpulan value yang berurutan (seperti array)
@@ -28,7 +26,7 @@ Tugas 3 Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakult
 
 ## Data Delivery dalam Pengimplementasian Platform
 
-![BaganDataDelivery](https://github.com/mayfshadrina/tugas2/issues/2#issue-1381713008)
+![BaganDjango](https://user-images.githubusercontent.com/87022037/191642480-2887fe8c-054a-4e58-be8e-e1e115c790f4.png)
 
 Ketika kita mengimplementasikan platform yang akan berinteraksi dengan pengguna untuk mendapatkan HTTP Request dan mengirimkan HTTP Response terkait dengan data, maka data delivery sangat dibutuhkan agar mempermudah pengaturan dan pendistribusian data dari database ke halaman pengguna. Nantinya, data delivery akan sangat berguna untuk menentukan dokumen apa saja yang akan di-return sesuai dengan kebutuhan ekstensi file-nya (bisa merupakan HTML, CSS, JPG, JS, XML, JSON, dan lain-lain).
 
