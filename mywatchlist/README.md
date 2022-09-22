@@ -253,6 +253,16 @@ Ketika kita mengimplementasikan platform yang akan berinteraksi dengan pengguna 
    ```
    dan GitHub akan secara otomatis melkaukan deployment ke Heroku yang saya miliki
 
+## Screenshot Postman
+
+1. HTML
+![html watchlist](https://user-images.githubusercontent.com/87022037/191655484-55856d72-095f-49f2-a1d5-cfd4c8aae2df.jpg)
+
+2. XML
+![xml watchlist](https://user-images.githubusercontent.com/87022037/191655599-8d5d4cc6-bb88-4239-95df-0288599dfa1e.jpg)
+
+3. JSON
+![json watchlist](https://user-images.githubusercontent.com/87022037/191655856-a1dbf09e-4764-469d-95b4-5e173e2b6f72.jpg)
 
 ## Credits
 
