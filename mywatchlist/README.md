@@ -7,7 +7,7 @@ Tugas 3 Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakult
 
 ## Perbedaan antara JSON, XML, dan HTML
 
-![BaganDjango](https://user-images.githubusercontent.com/87022037/190303040-5cb0d383-3b36-4c06-ab00-ac84962b3c54.png)
+![BaganDjango](https://user-images.githubusercontent.com/87022037/191642480-2887fe8c-054a-4e58-be8e-e1e115c790f4.png)
 
 1. JSON
     * JavaScript Object Notation atau yang lebih kerap dikenal dengan JSON merupakan sebuah format yang digunakan untuk menyimpan, membaca, dan menukar dara-data dari web server sehingga dapat dibaca oleh para pengguna
