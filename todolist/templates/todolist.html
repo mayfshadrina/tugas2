@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+ {% block content %}
+
+  <h1>Lab 1 Assignment PBP/PBD</h1>
+
+  <h5>Name: </h5>
+  <p>{{user.get_username}}</p>
+
+  <button><a href="{% url 'todolist:create_task' %}">Tambah Tugas</a></button>
+  <br>
+  <table width = '100%'>
+    <table border="1">
+    <tr>
+      <th>Tanggal Pembuatan</th>
+      <th>Judul</th>
+      <th>Deskripsi</th>
+      <th>Status Pengerjaan</th>
+      <th>Ubah Status</th>
+      <th>Hapus</th>
+    </tr>
+    {% comment %} Add the data below this line {% endcomment %}
+    {% for task in list_task %}
+      <tr>
+          <th>{{task.date}}</th>
+          <th>{{task.title}}</th>
+          <th>{{task.description}}</th>
+
+          {% if task.is_finished %} 
+            <th>Selesai</th>
+          {% else %}
+            <th>Belum Selesai</th>
+          {% endif %}
+
+          {% comment %} <td><button><a href="{% url 'todolist:ubah' task.id %}">Ubah</a></button></td> {% endcomment %}
+          <td><button><a href="{% url 'todolist:ubah' task.id %}">Ubah</a></button></td>
+          <td><button><a href="{% url 'todolist:delete' task.id %}">Delete</a></button></td>
+      </tr>
+    {% endfor %}
+  </table>
+  <br>
+  <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+
+ {% endblock content %}
