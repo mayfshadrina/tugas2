@@ -32,7 +32,6 @@
             <th>Belum Selesai</th>
           {% endif %}
 
-          {% comment %} <td><button><a href="{% url 'todolist:ubah' task.id %}">Ubah</a></button></td> {% endcomment %}
           <td><button><a href="{% url 'todolist:ubah' task.id %}">Ubah</a></button></td>
           <td><button><a href="{% url 'todolist:delete' task.id %}">Delete</a></button></td>
       </tr>
@@ -40,5 +39,7 @@
   </table>
   <br>
   <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+  <br>
+  <h5>Sesi terakhir login: {{ last_login }}</h5>
 
- {% endblock content %}
+{% endblock content %}
