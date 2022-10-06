@@ -1,14 +1,67 @@
 {% extends 'base.html' %}
 
+{% block content %}
+<nav class="navbar navbar-expand-lg shadow-md py-2 bg-purple relative flex items-center w-full justify-between">
+  <div class="px-16 w-full flex justify-between">
+    <h1 class = "text-xl font-bold text-white py-4">My Todolist</h1>
+  </div>
+</nav>
+
+{% block meta %}
+<title>Login</title>
+{% endblock meta %}
+
+<body class = "text-black">
+    <div class = "login px-16 flex justify-center">
+        <div>
+            <h1 class = "text-3xl font-bold text-purple py-4 content-center">Log In</h1>
+
+            <form method="POST" action="">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td>Username: </td>
+                        <td><input type="text" name="username" placeholder="Username" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"></td>
+                    </tr>
+                            
+                    <tr>
+                        <td>Password: </td>
+                        <td><input type="password" name="password" placeholder="Password" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td><input class="bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-4 border border-transparent hover:border-transparent rounded" type="submit" value="Login"></td>
+                    </tr>
+                </table>
+            </form>
+
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}     
+                
+            Belum mempunyai akun? <a class = "text-purple underline" href="{% url 'todolist:register' %}">Buat Akun</a>
+            </div>
+    </div>
+</body>
+{% endblock content %}
+
+{% comment %} {% extends 'base.html' %}
+
 {% block meta %}
 <title>Login</title>
 {% endblock meta %}
 
 {% block content %}
 
+<body class = "text-black">
 <div class = "login">
 
-    <h1>Login</h1>
+    <h1 class = "text-3xl font-bold text-purple">Login</h1>
 
     <form method="POST" action="">
         {% csrf_token %}
@@ -42,4 +95,4 @@
 
 </div>
 
-{% endblock content %}
+{% endblock content %} {% endcomment %}

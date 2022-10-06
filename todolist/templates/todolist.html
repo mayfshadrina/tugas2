@@ -1,45 +1,100 @@
 {% extends 'base.html' %}
 
- {% block content %}
+{% block content %}
+<nav class="navbar navbar-expand-lg shadow-md py-2 bg-purple relative flex items-center w-full justify-between">
+  <div class="px-4 w-full flex justify-between sm:px-8 md:px-16">
+    <h1 class = "text-md sm:text-xl font-bold text-white py-4">My Todolist</h1>
+    <div class = "flex justify-end m-2 grid grid-cols-2 gap-2">
+      <button class = "text-sm sm:text-md bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-4 border border-transparent hover:border-transparent rounded"><a href="{% url 'todolist:create_task' %}">Tambah Tugas</a></button>
+      <button class = "text-sm sm:text-md bg-transparent hover:bg-white text-white hover:text-purple font-semibold hover:white py-2 px-4 border border-white hover:border-transparent rounded"><a href="{% url 'todolist:logout' %}">Logout</a></button>
+    </div>
+  </div>
+</nav>
+<body class = "text-black">
+  <div class = "px-4 sm:px-8 md:px-16">
+    <h5 class = "text-3xl font-bold text-black py-4">Halo, {{user.get_username}}!</h5>
 
-  <h1>Lab 1 Assignment PBP/PBD</h1>
+    <br>
+    <div class = "grid md:grid-cols-2 lg:grid-cols-3 w-full gap-5 mt-8 sm:mt-5 px-4 py-4">
+      {% for task in list_task %}
+        <div class = "rounded-lg pl-10 pr-6 py-5 bg-white shadow-md hover:shadow-xl">
+          <div>
+            <h1 class = "font-semibold text-grey text-sm">{{task.date}}</h1>
+            <h1 class = "text-lg font-bold">{{task.title}}</h1>
+            <p class="text-gray-700 text-base mb-4">
+              {{task.description}}
+            </p>
+          </div>
 
-  <h5>Name: </h5>
-  <p>{{user.get_username}}</p>
+          <div class="flex justify-between">
+            {% if task.is_finished %} 
+              <span class = "text-sm sm:text-md bg-green text-white py-2 px-4 sm: px-4 rounded-full">Selesai</span>
+            {% else %}
+              <span class = "text-sm sm:text-md bg-red text-white py-2 px-4 sm: px-4 rounded-full">Belum Selesai</span>
+            {% endif %}
 
-  <button><a href="{% url 'todolist:create_task' %}">Tambah Tugas</a></button>
-  <br>
-  <table width = '100%'>
-    <table border="1">
-    <tr>
-      <th>Tanggal Pembuatan</th>
-      <th>Judul</th>
-      <th>Deskripsi</th>
-      <th>Status Pengerjaan</th>
-      <th>Ubah Status</th>
-      <th>Hapus</th>
-    </tr>
-    {% comment %} Add the data below this line {% endcomment %}
-    {% for task in list_task %}
-      <tr>
-          <th>{{task.date}}</th>
-          <th>{{task.title}}</th>
-          <th>{{task.description}}</th>
-
-          {% if task.is_finished %} 
-            <th>Selesai</th>
-          {% else %}
-            <th>Belum Selesai</th>
-          {% endif %}
-
-          <td><button><a href="{% url 'todolist:ubah' task.id %}">Ubah</a></button></td>
-          <td><button><a href="{% url 'todolist:delete' task.id %}">Delete</a></button></td>
-      </tr>
-    {% endfor %}
-  </table>
-  <br>
-  <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
-  <br>
-  <h5>Sesi terakhir login: {{ last_login }}</h5>
-
+            <div>
+              <td><button class = "text-sm sm:text-md bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-4 border border-transparent hover:border-transparent rounded"><a href="{% url 'todolist:ubah' task.id %}">Ubah</a></button></td>
+              <td><button class="text-sm sm:text-md bg-transparent hover:bg-light_blue text-blue font-semibold hover:text-blue py-2 px-4 border border-blue hover:border-blue rounded"><a href="{% url 'todolist:delete' task.id %}">Delete</a></button></td>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <br>
+    <h5 class = "flex justify-center border-b">Sesi Terakhir Log In: {{ last_login }}</h5>
+</div>
+</body>
 {% endblock content %}
+
+{% comment %} {% extends 'base.html' %}
+
+ {% block content %}
+<nav class="navbar navbar-expand-lg shadow-md py-2 bg-purple relative flex items-center w-full justify-between">
+  <div class="px-16 w-full flex justify-between">
+    <h1 class = "text-xl font-bold text-white py-4">My Todolist</h1>
+    <div class = "flex justify-end">
+      <button class = "text-l font-bold text-white px-4"><a href="{% url 'todolist:create_task' %}">Tambah Tugas</a></button>
+      <button class = "text-l font-bold text-white px-4"><a href="{% url 'todolist:logout' %}">Logout</a></button>
+    </div>
+  </div>
+</nav>
+<body class = "text-black">
+  <div class = "px-16">
+    <h5 class = "text-3xl font-bold text-black py-4">Halo, {{user.get_username}}!</h5>
+
+    <br>
+    <table width = '100%'>
+      <table border="1">
+      <tr class = "font-bold px-4">
+        <td>Tanggal Pembuatan</td>
+        <td>Judul</td>
+        <td>Deskripsi</td>
+        <td>Status Pengerjaan</td>
+        <td>Ubah Status</td>
+        <td>Hapus</td>
+      </tr>
+      {% comment %} Add the data below this line {% endcomment %}
+      {% comment %} {% for task in list_task %}
+        <tr class = "font-normal px-4">
+            <td>{{task.date}}</td>
+            <td>{{task.title}}</td>
+            <td>{{task.description}}</td>
+
+            {% if task.is_finished %} 
+              <td>Selesai</td>
+            {% else %}
+              <td>Belum Selesai</td>
+            {% endif %}
+
+            <td><button class = "text-l font-bold text-blue px-8"><a href="{% url 'todolist:ubah' task.id %}">Ubah</a></button></td>
+            <td><button class = "text-l font-bold text-red px-8"><a href="{% url 'todolist:delete' task.id %}">Delete</a></button></td>
+        </tr>
+      {% endfor %}
+    </table>
+    <br>
+    <br>
+    <h5>Sesi Terakhir Log In: {{ last_login }}</h5>
+</div>
+</body>
+{% endblock content %} {% endcomment %}

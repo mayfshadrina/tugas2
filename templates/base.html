@@ -5,6 +5,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          screens: {
+            sm: '640px',
+            md: '900px',
+            lg: '1280px',
+          },
+          colors: {
+            purple: '#A67399',
+            blue: '#50AEC7',
+            yellow: '#FCEEB6',
+            white: '#FFFFFF',
+            bg: '#FBFBFB',
+            black: '#262626',
+            red: "#C6362C",
+            green: "#468636",
+            dark_blue: "#419AB1",
+            light_blue: "#F7FDFF",
+            grey: "#69777A",
+          },
+          fontFamily: {
+            sans: ['Graphik', 'sans-serif'],
+            serif: ['Merriweather', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
   {% comment %} <link rel="stylesheet" href="{% static 'css/style.css' %}"> {% endcomment %}
   {% block meta %}
   {% endblock meta %}

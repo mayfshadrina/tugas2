@@ -58,18 +58,14 @@ def show_todolist(request):
 
 def create_task(request):
     if request.method == 'POST':
-        form = create_form(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data['title']
-            description = form.cleaned_data['description']
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        if title != "" or description != "":
             Task.objects.create(title = title, description = description, date = datetime.datetime.now(), user = request.user)
             return redirect('todolist:show_todolist')
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = create_form()
-    context = {
-        'form': form,
-        }
+        else:
+            messages.info(request, 'Isi informasi tugas dengan benar!')
+    context = {}
     return render(request, 'create_task.html', context)
 
 def delete(request, id):
