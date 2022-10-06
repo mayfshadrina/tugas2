@@ -1,7 +1,7 @@
 Tugas 5 Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakultas Ilmu Komputer Universitas Indonesia, Semester Ganjil 2022/2023
 
 ## Link Heroku Tugas 5 - Mayfa Shadrina Siddi
-[tugas5-mayfa-todolist](https://tugas2-mayfa.herokuapp.com/todolist/)
+[tugas5-mayfa-todolist](https://tugas2-mayfa.herokuapp.com/todolist/login/)
 
 ## Apa perbedaan dari Inline, Internal, dan External CSS? Apa saja kelebihan dan kekurangan dari masing-masing style?
 1. Internal CSS
