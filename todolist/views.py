@@ -11,6 +11,10 @@ import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import create_form
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.http import HttpResponse
+from django.core import serializers
 
 # Create your views here.
 def register(request):
@@ -49,13 +53,27 @@ def logout_user(request):
 
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
-    data_task = Task.objects.filter(user = request.user) #sesuai sama user yang lagi login
+    # data_task = Task.objects.filter(user = request.user) #sesuai sama user yang lagi login
     context = {
-    'list_task': data_task,
-    'last_login': request.COOKIES['last_login'],
+        # 'list_task': data_task,
+        'last_login': request.COOKIES['last_login'],
     }
     return render(request, 'todolist.html', context)
 
+def show_json(request):
+    data_task = Task.objects.filter(user = request.user) #sesuai sama user yang lagi login
+    return HttpResponse(serializers.serialize("json", data_task), content_type="application/json")
+
+# @login_required(login_url='/todolist/login/')
+# def show_todolist_ajax(request):
+#     data_task = Task.objects.filter(user = request.user) #sesuai sama user yang lagi login
+#     context = {
+#         'list_task': data_task,
+#         'last_login': request.COOKIES['last_login'],
+#     }
+#     return render(request, "todolist_ajax.html", context)
+
+@login_required(login_url='/todolist/login/')
 def create_task(request):
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -67,6 +85,26 @@ def create_task(request):
             messages.info(request, 'Isi informasi tugas dengan benar!')
     context = {}
     return render(request, 'create_task.html', context)
+
+@login_required(login_url='/todolist/login/')
+@csrf_exempt
+def create_task_ajax(request):
+    if request.method == 'POST':
+        print("i")
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        if title != "" or description != "":
+            task = Task.objects.create(title = title, description = description, date = datetime.datetime.now(), user = request.user)
+            context = {
+                'pk' : task.pk,
+                'fields' : {
+                    'title' : task.title,
+                    'description' : task.description,
+                    'is_finished' : task.is_finished,
+                    'date' : task.date
+                }
+            }
+            return JsonResponse(context)
 
 def delete(request, id):
   member = Task.objects.get(id=id)

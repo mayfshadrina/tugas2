@@ -32,14 +32,6 @@
               <td><input class="bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-4 border border-transparent hover:border-transparent rounded" type="submit" name="submit" value="Daftar"/></td>
             </form>
 
-        {% if messages %}  
-            <ul>   
-                {% for message in messages %}  
-                    <li>{{ message }}</li>  
-                    {% endfor %}  
-            </ul>   
-        {% endif %}
-
         Sudah mempunyai akun? <a class = "text-purple underline" href="{% url 'todolist:login' %}">Log In</a>
     </div>
 </div>  
