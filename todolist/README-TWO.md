@@ -1,6 +1,6 @@
-Tugas 5 Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakultas Ilmu Komputer Universitas Indonesia, Semester Ganjil 2022/2023
+Tugas 6 Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakultas Ilmu Komputer Universitas Indonesia, Semester Ganjil 2022/2023
 
-## Link Heroku Tugas 5 - Mayfa Shadrina Siddi
+## Link Heroku Tugas 6 - Mayfa Shadrina Siddi
 [tugas5-mayfa-todolist](https://tugas2-mayfa.herokuapp.com/todolist/login/)
 
 ## Jelaskan perbedaan antara asynchronous programming dengan synchronous programming
@@ -10,7 +10,7 @@ Tugas 5 Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakult
 
 ## Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma Event-Driven Programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini
 * Event-driven programming merupakan suatu paradigma dimana program akan berjalan sesuai dengan event yang dilakukan oleh user pada suatu halaman website/aplikasi, seperti ketika mouse click, mouse hover, mouse drag, press keyword, dan lain-lain. Setiap event yang sudah ditentukan oleh programmer, nantinya akan dihubungkan pada function yang akan berjalan ketika trigger event dilakukan.
-* Pada tugas 6, saya mengimplementasikan paradigma ini pada xxx
+* Pada tugas 6, saya mengimplementasikan paradigma ini pada fitur Tambah Tugas, yaitu ketika button dengan id "tambah" di-klik, maka akan memunculkan modal Tambah Tugas yang akan menyediakan form dengan text field Title dengan Description bagi pengguna untuk diisi.
 
 ## Jelaskan penerapan asynchronous programming pada AJAX
 Kode yang kita tuliskan secara asynchronous dengan bantuan AJAX akan dieksekusi di belakang thread utama (main thread) sehingga tidak menghentikan proses runtime walaupun proses sebelumnya belum selesai dilakukan. Selagi menunggu proses sebelumnya selesai, compiler akan mengeksekusi perintah kode selanjutnya. Asynchronous programming memperbolehkan penukaran data dengan server di belakang main thread sehingga server dapat langsung mengubah/menambahkan komponen, elemen, atau data pada sebuah halaman website tanpa harus melakukan reloading halaman.
@@ -42,60 +42,181 @@ Terdapat tiga metode AJAX request yang kerap digunakan oleh programmer:
 
 # Poin 1.1: Membuat view baru yang mengembalikan seluruh data task dalam bentuk JSON
 
-1. Buatlah view baru yang mengembalikan seluruh data task dalam bentuk JSON
-```shell
-    <script src="https://cdn.tailwindcss.com"></script>
-```
-
-2. Menambahkan Tailwind Configuration pada base.html yang berisikan screen, color, dan juga font type
-
-3. Mengubah tampilan dengan arahan Tailwind Documentation dan melakukannya dengan style Inline CSS, yaitu dengan melakukan perubahan style pada masing-masing elemen
-
-4. Membuat card dengan attribute-attribute seperti block, rounded, grid, shadow, dan lainnya
-
-# Poin 1.2: Membuat path /todolist/json yang mengarah ke view yang baru kamu buat.
-
-1. Melakukan settings pada masing-masing attribute agar tampilannya dapat berubah jika ukuran halaman diperkecil atau diperbesar dengan menggunakan configuration screen
-COntoh:
+1. Membuat view baru yang mengembalikan seluruh data task dalam bentuk JSON
 
 ```shell
-<div class = "grid md:grid-cols-2 lg:grid-cols-3 w-full gap-5 mt-8 sm:mt-5 px-4 py-4">
+    def show_json(request):
+    data_task = Task.objects.filter(user = request.user) #sesuai sama user yang lagi login
+    return HttpResponse(serializers.serialize("json", data_task), content_type="application/json")
 ```
 
-Secara default card yang akan ditampilkan pada suatu halaman hanya akan memuat satu card pada satu baris. Tetapi ketika ukuran halaman mencapai md (900px), maka akan dimunculkan dua card pada satu baris. Selanjutnya, jika ukuran halaman telah mencapai lg (1280px), maka akan dimunculkan 3 card pada satu baris. Selain itu, saya juga menetapkan perbedaaan margin top (mt).
+2. Menambah path /todolist/json yang mengarah ke view yang baru kamu buat.
 
-# Poin 1.3: Melakukan pengambilan task menggunakan AJAX GET.
-
-1. Buatlah view baru yang mengembalikan seluruh data task dalam bentuk JSON
 ```shell
-    <script src="https://cdn.tailwindcss.com"></script>
+    path('json/', show_json, name='show_json'),
 ```
 
-2. Menambahkan Tailwind Configuration pada base.html yang berisikan screen, color, dan juga font type
+# Poin 1.2: Melakukan pengambilan task menggunakan AJAX GET.
 
-3. Mengubah tampilan dengan arahan Tailwind Documentation dan melakukannya dengan style Inline CSS, yaitu dengan melakukan perubahan style pada masing-masing elemen
+1. Mengimport library AJAX di bagian head dengan mengimport link:
 
-4. Membuat card dengan attribute-attribute seperti block, rounded, grid, shadow, dan lainnya
+```shell
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+```
+
+2. Menghapus elemen card pada HTML dan hanya menyisakan grid layouting-nya saja dengan id = "todolist"
+
+```shell
+    <div class = "grid md:grid-cols-2 lg:grid-cols-3 w-full gap-5 mt-8 sm:mt-5" id = "todolist">
+```
+
+3. Menambahkan script AJAX GET dengan memanfaatkan fungsi show_json yang telah dibuat sebelumnya lalu menambahkan tiap data (berupa card) ke dalam grid yang telah dibuat di struktur HTML dengan mengiterasi seluruh data yang ada
+
+```shell
+    $.get( "/todolist/json/", function( data ) {
+        for (let i = 0; i < data.length; i++) {
+          $('#todolist').append(
+            `<div id = "${data[i].pk}--tugas" class = "rounded-lg pl-10 pr-6 py-5 bg-white shadow-md hover:shadow-xl">
+              <div>
+                <h1 class = "font-semibold text-grey text-sm">${data[i].fields.date}</h1>
+                <h1 class = "text-lg font-bold">${data[i].fields.title}</h1>
+                <p class="text-gray-700 text-base mb-4">
+                  ${data[i].fields.description}
+                </p>
+              </div>
+      
+              <div class="flex justify-between">
+                ${data[i].fields.is_finished ?
+                  `<span class = "text-sm sm:text-md bg-green text-white py-2 px-3 sm: px-3 rounded-full">Selesai</span>` :
+                  `<span class = "text-sm sm:text-md bg-red text-white py-2 px-3 sm: px-3 rounded-full">Belum Selesai</span>`}      
+                <div>
+                  ${data[i].fields.is_finished ?
+                  `<td><button class = "text-sm sm:text-md bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-3 border border-transparent hover:border-transparent rounded"><a href="/todolist/ubah/${data[i].pk}"><i class="bi bi-x-circle-fill"></i></a></button></td>` :
+                  `<td><button class = "text-sm sm:text-md bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-3 border border-transparent hover:border-transparent rounded"><a href="/todolist/ubah/${data[i].pk}"><i class="bi bi-check-circle-fill"></i></a></button></td>`}
+                  <td><button class="text-sm sm:text-md bg-transparent hover:bg-light_blue text-blue font-semibold hover:text-blue py-2 px-3 border border-blue hover:border-blue rounded"><a href="/todolist/delete/${data[i].pk}"><i class="bi bi-trash-fill"></i></a></button></td>
+                </div>
+              </div>
+            </div>`
+          );
+        }
+    });
+```
 
 # Poin 2: Implementasi AJAX POST
 
-# Poin 2.1: Membuat sebuah tombol Add Task yang membuka sebuah modal dengan form untuk menambahkan task.
-xxx
+# Poin 2.1: Membuat modal dan view baru untuk melakukan penambahan tugas secara asynchronous
 
-# Poin 2.2: Membuat view baru untuk menambahkan task baru ke dalam database.
-xxx
+1. Membuat modal yang berisikan dengan form dengan text field Title dan Description
 
-# Poin 2.3: Membuat path /todolist/add yang mengarah ke view yang baru kamu buat.
-xxx
+```shell
+    <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="createTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog bg-white rounded-md" role="document">
+      <div class="modal-content bg-white rounded-md">
+        <div class="modal-header rounded-md">
+          <h5 class="modal-title text-black" id="createTaskModalLabel">Add Task</h5>
+        </div>
+        <div class="modal-body">
+          {% csrf_token %}
+          <table>  
+            <tr>
+                <td>Title: </td>
+                <td><input type="text" id="title" name="title" placeholder="Title" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"></td>
+            </tr>
+                    
+            <tr>
+                <td>Description: </td>
+                <td><input type="text" id="description" name="description" placeholder="Description" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"></td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="text-sm sm:text-md bg-transparent hover:bg-light_blue text-blue font-semibold hover:text-blue py-2 px-3 border border-blue hover:border-blue rounded" data-bs-dismiss="modal">Cancel</button>
+          <button id="tambah" type="button" class = "text-sm sm:text-md bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-4 border border-transparent hover:border-transparent rounded">Tambah</button>
+        </div>
+      </div>
+    </div>
+  </div>
+```
 
-# Poin 2.4: Menghubungkan form yang telah dibuat di dalam modal kamu ke path /todolist/add
-xxx
+2. Menghubungkan tombol Tambah Tugas agar dapat membuka modal yang sebelumnya telah dibuat dengan menambahkan kode ini setelah object class dengan menyesuaikannya dengan ID modal
 
-# Poin 2.5: Menutup modal setelah penambahan task telah berhasil dilakukan.
-xxx
+```shell
+    <button class = "....." data-bs-toggle="modal" data-bs-target="#modalTambah">
+```
 
-# Poin 2.6: Melakukan refresh pada halaman utama secara asinkronus untuk menampilkan list terbaru tanpa reload seluruh page.
-xxx
+3. Membuat view baru untuk menambahkan task baru ke dalam database.
+
+```shell
+    @login_required(login_url='/todolist/login/')
+    @csrf_exempt
+    def create_task_ajax(request):
+        if request.method == 'POST':
+            title = request.POST.get('title')
+            description = request.POST.get('description')
+            if title != "" or description != "":
+                task = Task.objects.create(title = title, description = description, date = datetime.datetime.now(), user = request.user)
+                context = {
+                    'pk' : task.pk,
+                    'fields' : {
+                        'title' : task.title,
+                        'description' : task.description,
+                        'is_finished' : task.is_finished,
+                        'date' : task.date
+                    }
+                }
+                return JsonResponse(context)
+```
+
+4. Menambah path yang mengarah ke view yang baru dibuat.
+
+```shell
+    ...
+    path('create-ajax/', create_task_ajax, name='create_task_ajax'),
+    ...
+```
+
+# Poin 2.2: Menghubungkan form yang telah dibuat di dalam modal kamu ke path /todolist/add
+1. Menambahkan script AJAX POST dengan memanfaatkan event-driven programming, yaitu ketika button dengan ID "tambah" di-klik, maka AJAX akan menambahkan data yang telah diinput ke database dan langsung membuat card Tugas
+
+```shell
+    $("#tambah").click(function(){
+        $.post( "/todolist/create-ajax/", {title : $("#title").val(), description : $("#description").val()}, function(data, status) {
+          if (status == "success") {
+            $('#todolist').append(
+            `<div id = "${data.pk}--tugas" class = "rounded-lg pl-10 pr-6 py-5 bg-white shadow-md hover:shadow-xl">
+              <div>
+                <h1 class = "font-semibold text-grey text-sm">${data.fields.date}</h1>
+                <h1 class = "text-lg font-bold">${data.fields.title}</h1>
+                <p class="text-gray-700 text-base mb-4">
+                  ${data.fields.description}
+                </p>
+              </div>
+      
+              <div class="flex justify-between">
+                ${data.fields.is_finished ?
+                  `<span class = "text-sm sm:text-md bg-green text-white py-2 px-3 sm: px-3 rounded-full">Selesai</span>` :
+                  `<span class = "text-sm sm:text-md bg-red text-white py-2 px-3 sm: px-3 rounded-full">Belum Selesai</span>`}      
+                  <div>
+                    ${data.fields.is_finished ?
+                    `<td><button class = "text-sm sm:text-md bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-3 border border-transparent hover:border-transparent rounded"><a href="/todolist/ubah/${data.pk}"><i class="bi bi-x-circle-fill"></i></a></button></td>` :
+                    `<td><button class = "text-sm sm:text-md bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-3 border border-transparent hover:border-transparent rounded"><a href="/todolist/ubah/${data.pk}"><i class="bi bi-check-circle-fill"></i></a></button></td>`}
+                    <td><button class="text-sm sm:text-md bg-transparent hover:bg-light_blue text-blue font-semibold hover:text-blue py-2 px-3 border border-blue hover:border-blue rounded"><a href="/todolist/delete/${data.pk}"><i class="bi bi-trash-fill"></i></a></button></td>
+                  </div>
+              </div>
+            </div>`
+            )
+            $('#title').val('')
+            $('#description').val('')
+          }
+        })
+    })
+```
+
+2. Menambahkan kode sebagai berikut setelah object class pada button Tambah sehingga modal bisa ditutup
+
+```shell
+    <button class = "..." data-bs-dismiss="modal">
+```
 
 ## Credits
 

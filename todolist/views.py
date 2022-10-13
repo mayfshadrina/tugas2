@@ -64,15 +64,6 @@ def show_json(request):
     data_task = Task.objects.filter(user = request.user) #sesuai sama user yang lagi login
     return HttpResponse(serializers.serialize("json", data_task), content_type="application/json")
 
-# @login_required(login_url='/todolist/login/')
-# def show_todolist_ajax(request):
-#     data_task = Task.objects.filter(user = request.user) #sesuai sama user yang lagi login
-#     context = {
-#         'list_task': data_task,
-#         'last_login': request.COOKIES['last_login'],
-#     }
-#     return render(request, "todolist_ajax.html", context)
-
 @login_required(login_url='/todolist/login/')
 def create_task(request):
     if request.method == 'POST':
@@ -90,7 +81,6 @@ def create_task(request):
 @csrf_exempt
 def create_task_ajax(request):
     if request.method == 'POST':
-        print("i")
         title = request.POST.get('title')
         description = request.POST.get('description')
         if title != "" or description != "":
