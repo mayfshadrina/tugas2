@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block meta %}
+<title>MyTodolist</title>
+{% endblock meta %}
+
 {% block content %}
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -26,7 +30,7 @@
                   ${data[i].fields.is_finished ?
                   `<td><button class = "text-sm sm:text-md bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-3 border border-transparent hover:border-transparent rounded"><a href="/todolist/ubah/${data[i].pk}"><i class="bi bi-x-circle-fill"></i></a></button></td>` :
                   `<td><button class = "text-sm sm:text-md bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-3 border border-transparent hover:border-transparent rounded"><a href="/todolist/ubah/${data[i].pk}"><i class="bi bi-check-circle-fill"></i></a></button></td>`}
-                  <td><button class="text-sm sm:text-md bg-transparent hover:bg-light_blue text-blue font-semibold hover:text-blue py-2 px-3 border border-blue hover:border-blue rounded"><a href="/todolist/delete/${data[i].pk}"><i class="bi bi-trash-fill"></i></a></button></td>
+                  <td><button class="text-sm sm:text-md bg-transparent hover:bg-light_blue text-blue font-semibold hover:text-blue py-2 px-3 border border-blue hover:border-blue rounded" onclick="hapusTugas(${data[i].pk})"><i class="bi bi-trash-fill"></i></button></td>
                 </div>
               </div>
             </div>`
@@ -55,7 +59,7 @@
                     ${data.fields.is_finished ?
                     `<td><button class = "text-sm sm:text-md bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-3 border border-transparent hover:border-transparent rounded"><a href="/todolist/ubah/${data.pk}"><i class="bi bi-x-circle-fill"></i></a></button></td>` :
                     `<td><button class = "text-sm sm:text-md bg-blue hover:bg-dark_blue text-white font-semibold hover:text-white py-2 px-3 border border-transparent hover:border-transparent rounded"><a href="/todolist/ubah/${data.pk}"><i class="bi bi-check-circle-fill"></i></a></button></td>`}
-                    <td><button class="text-sm sm:text-md bg-transparent hover:bg-light_blue text-blue font-semibold hover:text-blue py-2 px-3 border border-blue hover:border-blue rounded"><a href="/todolist/delete/${data.pk}"><i class="bi bi-trash-fill"></i></a></button></td>
+                    <td><button class="text-sm sm:text-md bg-transparent hover:bg-light_blue text-blue font-semibold hover:text-blue py-2 px-3 border border-blue hover:border-blue rounded" onclick="hapusTugas(${data.pk})"><i class="bi bi-trash-fill"></i></button></td>
                   </div>
               </div>
             </div>`
@@ -65,6 +69,16 @@
           }
         })
       })
+
+      hapusTugas = (idTugas) => {
+        $.ajax({
+          url: `/todolist/delete/${idTugas}`,
+          type: 'DELETE',
+          success: function(response){
+            $(`#${idTugas}--tugas`).remove()
+          }
+        })
+      }
     });
   </script>
 </head>
@@ -88,7 +102,7 @@
     <div class="modal-dialog bg-white rounded-md" role="document">
       <div class="modal-content bg-white rounded-md">
         <div class="modal-header rounded-md">
-          <h5 class="modal-title text-black" id="createTaskModalLabel">Add Task</h5>
+          <h5 class="modal-title text-black font-bold" id="createTaskModalLabel">Add Task</h5>
         </div>
         <div class="modal-body">
           {% csrf_token %}

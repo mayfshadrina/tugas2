@@ -101,6 +101,13 @@ def delete(request, id):
   member.delete()
   return redirect('todolist:show_todolist')
 
+@login_required(login_url='/todolist/login/')
+@csrf_exempt
+def delete_ajax(request, id):
+    if (request.method == 'DELETE'):
+        Task.objects.filter(id=id).delete()
+        return HttpResponse(status=202)
+
 def ubah(request, id):
   member = Task.objects.get(id=id)
   member.is_finished = not(member.is_finished)

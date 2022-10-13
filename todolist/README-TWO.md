@@ -218,6 +218,47 @@ Terdapat tiga metode AJAX request yang kerap digunakan oleh programmer:
     <button class = "..." data-bs-dismiss="modal">
 ```
 
+## Poin 3: Implementasi AJAX DELETE (Bonus)
+
+1. Membuat function baru pada views.py untuk menghapus tugas menggunakan bantuan AJAX yang akan mereturn HttpResponse
+
+```shell
+    @login_required(login_url='/todolist/login/')
+    @csrf_exempt
+    def delete_ajax(request, id):
+        if (request.method == 'DELETE'):
+            Task.objects.filter(id=id).delete()
+            return HttpResponse(status=202)
+```
+
+2. Mengubah function yang dipanggil pada path /todolist/delete/<int:id> dengan function yang baru dibuat
+
+```shell
+    ...
+    path('delete/<int:id>', delete_ajax, name='delete_ajax'),
+    ...
+```
+
+3. Membuat function hapusTugas pada script AJAX untuk dapat menghapus tugas berdasarkan ID yang diminta
+
+```shell
+    hapusTugas = (idTugas) => {
+        $.ajax({
+          url: `/todolist/delete/${idTugas}`,
+          type: 'DELETE',
+          success: function(response){
+            $(`#${idTugas}--tugas`).remove()
+          }
+        })
+    }
+```
+
+4. Menambahkan kode pada button Delete (pada card) agar dapat mengimplementasikan event driven programming
+
+```shell
+    <button class = "..." onclick="hapusTugas(${data.pk})">
+```
+
 ## Credits
 
 Dokumen ini dijawab berdasarkan referensi-referensi yang saya baca dari 
