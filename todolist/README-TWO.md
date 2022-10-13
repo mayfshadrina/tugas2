@@ -1,7 +1,7 @@
 Tugas 6 Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakultas Ilmu Komputer Universitas Indonesia, Semester Ganjil 2022/2023
 
 ## Link Heroku Tugas 6 - Mayfa Shadrina Siddi
-[tugas5-mayfa-todolist](https://tugas2-mayfa.herokuapp.com/todolist/login/)
+[tugas6-mayfa-todolist](https://tugas2-mayfa.herokuapp.com/todolist/login/)
 
 ## Jelaskan perbedaan antara asynchronous programming dengan synchronous programming
 * Pada asynchronous programming, proses jalannya program dapat dilakukan secara bersamaan tanpa menunggu proses lain yang berjalan lebih dahulu untuk selesai. Asynchronous programming ini dapat ditemukan di hampir semua bahasa pemrograman, tetapi belum ditemukan di PHP. Untuk dapat melakukan asynchronous programming di PHP, kita dapat menggunakan AJAX (Asynchronous Javascript & XML). 
